@@ -28,6 +28,14 @@ function App() {
       </section>
 
       <section>
+        <h1>Wedding Invitation</h1>
+        <video controls className="wedding-video">
+          <source src="/PP-Wedding-Invitation.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </section>
+
+      <section>
         <h2>Pre-Wedding Photos</h2>
         <Slider {...settings}>
           <div>
