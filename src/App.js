@@ -23,8 +23,8 @@ function App() {
       </section>
 
       <section>
-        <h1>Wedding Invitation</h1>
-        <img src="/invitation-card.png" alt="Invitation" className="invitation-card" />
+        <h1>Wedding Card</h1>
+        <img src="/ARV-Wedding-Card.jpeg" alt="Invitation" className="invitation-card" />
       </section>
 
       <section>
@@ -72,18 +72,40 @@ function App() {
       </section>
 
       <section>
-        <h2>Venue</h2>
-        <a 
-          href="https://maps.google.com/maps/place//data=!4m2!3m1!1s0x3bcb5922d84cdc6f:0xc443f5ef5d605ca?entry=s&sa=X&ved=1t:8290&hl=en-in&ictx=111" 
-          target="_blank" 
-          rel="noopener noreferrer"
-        >
-          <img
-            src="/Location.png"
-            alt="Location QR"
-            className="qr-code"
-          />
-        </a>
+        <h2>Our Big Day, This Way</h2>
+        <div className="venue-container">
+          {/* Left Side: Engagement QR */}
+          <div className="venue-item">
+            <h3>Engagement</h3>
+            <a 
+              href="https://maps.google.com/maps/place//data=!4m2!3m1!1s0x3bcb5922d84cdc6f:0xc443f5ef5d605ca?entry=s&sa=X&ved=1t:8290&hl=en-in&ictx=111" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/HARI_HARA-GMAPS_LOC.png"
+                alt="Engagement QR"
+                className="qr-code"
+              />
+            </a>
+          </div>
+
+          {/* Right Side: Marriage Venue QR */}
+          <div className="venue-item">
+            <h3>Marriage Venue</h3>
+            <a 
+              href="https://maps.app.goo.gl/Qo9KPY3WzohMeZGz6"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/NMR-GMAPS-LOC.png"
+                alt="Marriage Venue QR"
+                className="qr-code"
+              />
+            </a>
+          </div>
+        </div>
       </section>
 
       <section>
