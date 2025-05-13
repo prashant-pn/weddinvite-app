@@ -76,7 +76,7 @@ function App() {
         <div className="venue-container">
           {/* Left Side: Engagement QR */}
           <div className="venue-item">
-            <h3>Engagement</h3>
+            <h3>Engagement Venue</h3>
             <a 
               href="https://maps.google.com/maps/place//data=!4m2!3m1!1s0x3bcb5922d84cdc6f:0xc443f5ef5d605ca?entry=s&sa=X&ved=1t:8290&hl=en-in&ictx=111" 
               target="_blank" 
