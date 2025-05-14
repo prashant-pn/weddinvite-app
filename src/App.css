@@ -84,8 +84,8 @@ body {
 .slider-image {
   display: block;
   margin: 0 auto; /* Centers the image horizontally */
-  max-width: 80%; /* Adjust the width of the image */
-  max-height: 300px; /* Set a maximum height for the image */
+  max-width: 100%; /* Adjust the width of the image */
+  max-height: 500px; /* Set a maximum height for the image */
   object-fit: cover; /* Ensures the image maintains its aspect ratio */
   border-radius: 15px; /* Adds rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Adds a shadow for aesthetics */

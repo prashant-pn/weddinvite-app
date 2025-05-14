@@ -7,7 +7,8 @@ import "slick-carousel/slick/slick-theme.css";
 import './App.css';
 
 function App() {
-  const [photos, setPhotos] = useState([]);
+  const [photos, setPhotos] = useState([]); // State to store photo file names
+  const [loading, setLoading] = useState(true); // State to track loading
 
   const settings = {
     dots: true,
@@ -22,20 +23,38 @@ function App() {
   useEffect(() => {
     const fetchPhotos = async () => {
       const folderId = '1OEVFnmSnVh3KDR-Ys2xePgWZnzk8PEV_'; // Your Google Drive folder ID
-      const apiKey = 'AIzaSyD20mpTttVSxTcPQclM2UHKYjjk9gcFcVo'; // Updated API key
+      const apiKey = 'AIzaSyD20mpTttVSxTcPQclM2UHKYjjk9gcFcVo'; // Your Google API key
       const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType,webContentLink,webViewLink)`;
 
       try {
         const response = await axios.get(url);
+        console.log('API Response:', response.data); // Log the API response
         const files = response.data.files;
-        const imageFiles = files.filter(file => file.mimeType.startsWith('image'));
-        setPhotos(imageFiles);
+        const imageFiles = files.filter(file => file.mimeType.startsWith('image/'));
+        setPhotos(imageFiles); // Update photos state
+        setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
         console.error('Error fetching photos:', error);
+        setLoading(false); // Set loading to false even if there's an error
       }
     };
 
     fetchPhotos();
+  }, []);
+
+  useEffect(() => {
+    // Fetch the list of photo file names from the public/photos folder
+    const fetchLocalPhotos = async () => {
+      // Replace this with the actual file names in your `public/photos` folder
+      const localPhotos = [
+        'PP1.jpeg',
+        'PP2.jpeg',
+        'PP3.jpeg',
+      ];
+      setPhotos(localPhotos);
+    };
+
+    fetchLocalPhotos();
   }, []);
 
   return (
@@ -58,22 +77,26 @@ function App() {
         </video>
       </section>
 
-      <section>
+      {/* <section>
         <h2>Pre-Wedding Photos</h2>
-        <Slider {...settings}>
-          {photos.map(photo => (
-            <div key={photo.id}>
-              <img 
-                src={photo.webContentLink} // Use webContentLink for the image URL
-                alt={photo.name} 
-                className="slider-image" 
-              />
-            </div>
-          ))}
-        </Slider>
-      </section>
+        {loading ? ( // Show loading spinner or placeholder while fetching data
+          <p>Loading photos...</p>
+        ) : (
+          <Slider {...settings}>
+            {photos.map((photo, index) => (
+              <div key={index}>
+                <img 
+                  src={photo.webContentLink} // Render from the Google Drive link
+                  alt={`Pre-wedding ${index + 1}`} 
+                  className="slider-image" 
+                />
+              </div>
+            ))}
+          </Slider>
+        )}
+      </section> */}
 
-      <section>
+      {/* <section>
         <h2>Static Pre-Wedding Photos</h2>
         <Slider {...settings}>
           <div>
@@ -82,6 +105,21 @@ function App() {
           <div>
             <img src="/PP2.jpeg" alt="Pre-wedding 2" className="slider-image" />
           </div>
+        </Slider>
+      </section> */}
+
+      <section>
+        <h2>Pre-Wedding Photos</h2>
+        <Slider {...settings}>
+          {photos.map((photo, index) => (
+            <div key={index}>
+              <img 
+                src={`/photos/${photo.name}`} // Render from the local folder
+                alt={`PP ${index + 1}`} 
+                className="slider-image" 
+              />
+            </div>
+          ))}
         </Slider>
       </section>
 
@@ -112,7 +150,6 @@ function App() {
       <section>
         <h2>Our Big Day, This Way</h2>
         <div className="venue-container">
-          {/* Left Side: Engagement QR */}
           <div className="venue-item">
             <h3>Engagement Venue</h3>
             <a 
@@ -128,7 +165,6 @@ function App() {
             </a>
           </div>
 
-          {/* Right Side: Marriage Venue QR */}
           <div className="venue-item">
             <h3>Marriage Venue</h3>
             <a 
