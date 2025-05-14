@@ -1,19 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from "react-slick";
-import ReactPlayer from 'react-player';
 import axios from 'axios';
+import ReactPlayer from 'react-player';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './App.css';
 
 function App() {
+  const [photos, setPhotos] = useState([]);
+
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
   };
+
+  useEffect(() => {
+    const fetchPhotos = async () => {
+      const folderId = '1OEVFnmSnVh3KDR-Ys2xePgWZnzk8PEV_'; // Your Google Drive folder ID
+      const apiKey = 'AIzaSyD20mpTttVSxTcPQclM2UHKYjjk9gcFcVo'; // Updated API key
+      const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType,webContentLink,webViewLink)`;
+
+      try {
+        const response = await axios.get(url);
+        const files = response.data.files;
+        const imageFiles = files.filter(file => file.mimeType.startsWith('image'));
+        setPhotos(imageFiles);
+      } catch (error) {
+        console.error('Error fetching photos:', error);
+      }
+    };
+
+    fetchPhotos();
+  }, []);
 
   return (
     <div className="App">
@@ -37,6 +60,21 @@ function App() {
 
       <section>
         <h2>Pre-Wedding Photos</h2>
+        <Slider {...settings}>
+          {photos.map(photo => (
+            <div key={photo.id}>
+              <img 
+                src={photo.webContentLink} // Use webContentLink for the image URL
+                alt={photo.name} 
+                className="slider-image" 
+              />
+            </div>
+          ))}
+        </Slider>
+      </section>
+
+      <section>
+        <h2>Static Pre-Wedding Photos</h2>
         <Slider {...settings}>
           <div>
             <img src="/PP1.jpeg" alt="Pre-wedding 1" className="slider-image" />
