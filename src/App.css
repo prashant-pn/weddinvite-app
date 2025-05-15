@@ -40,11 +40,19 @@ img {
 .invitation-card {
   display: block;
   margin: 20px auto;
-  max-width: 60%; /* Reduce the width of the card */
-  height: auto; /* Maintain aspect ratio */
+  max-width: 500px; /* Adjust the width of the images */
+  height: auto; /* Maintain the aspect ratio */
   border: 2px solid #ccc; /* Optional: Adds a border for better visibility */
-  border-radius: 15px; /* Rounds the corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow for aesthetics */
+  border-radius: 10px; /* Optional: Add rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow for aesthetics */
+}
+
+/* Container for side-by-side invitation images */
+.invitation-container {
+  display: flex; /* Use flexbox to align items side by side */
+  justify-content: center; /* Center the images horizontally */
+  gap: 20px; /* Add space between the images */
+  margin-top: 20px; /* Optional: Add some spacing above the container */
 }
 
 /* Heading Styling */

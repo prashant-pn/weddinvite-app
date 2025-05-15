@@ -61,7 +61,10 @@ function App() {
     <div className="App">
       <section>
         <h1>PP's Invitation</h1>
-        <img src="/E-Invite-SP.png" alt="Invitation" className="invitation-card" />
+        <div className="invitation-container">
+          <img src="/E-Invite-SP.png" alt="Invitation" className="invitation-card" />
+          <img src="/wed-invite-mock.jpeg" alt="Invitation" className="invitation-card" />
+        </div>
       </section>
 
       <section>
