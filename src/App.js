@@ -117,6 +117,8 @@ function App() {
                 src={`/photos/${photo.name}`} // Render from the local folder
                 alt={`PP ${index + 1}`} 
                 className="slider-image" 
+                onContextMenu={(e) => e.preventDefault()} // Disable right-click
+                draggable="false" // Disable dragging
               />
             </div>
           ))}
@@ -130,7 +132,7 @@ function App() {
             url="https://www.youtube.com/watch?v=uxojVPpa7N4"
             controls 
             width="100%" 
-            height="500px" 
+            height="500px" // Increased height
           />
         </div>
       </section>
