@@ -163,3 +163,52 @@ body {
   color: #444;
   margin-bottom: 10px;
 }
+
+.wedding-cards-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  margin: 40px 0;
+}
+
+.wedding-cards-horizontal {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 40px 0;
+}
+
+.wedding-card-half {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Divider Line */
+.card-divider {
+  width: 3px;
+  background: linear-gradient(to bottom, #9607e4 0%, #e6e6fa 100%);
+  margin: 0 30px;
+  border-radius: 8px;
+  align-self: stretch;
+  box-shadow: 0 0 8px #e6e6fa;
+}
+
+/* Flip Page Styling */
+.flip-page {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(150, 7, 228, 0.06);
+}
+
+.flip-page.cover, .flip-page.back-cover {
+  background: linear-gradient(135deg, #fbeffb 0%, #e6e6fa 100%);
+}

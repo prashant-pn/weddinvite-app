@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Slider from "react-slick";
 import axios from 'axios';
 import ReactPlayer from 'react-player';
+import HTMLFlipBook from "react-pageflip";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './App.css';
@@ -57,19 +58,70 @@ function App() {
     fetchLocalPhotos();
   }, []);
 
+  // Example: 5 pages + cover + back cover
+  const dameraCardPages = [
+    "/ARV-Wedding-Card-Cover.jpeg",      // Cover
+    "/ARV-Wedding-Card-1.jpeg",          // Page 1
+    "/ARV-Wedding-Card-2.jpeg",          // Page 2
+    //"/ARV-Wedding-Card-3.jpeg",          // Page 3
+    //"/ARV-Wedding-Card-4.jpeg",          // Page 4
+    //"/ARV-Wedding-Card-5.jpeg",          // Page 5
+    "/ARV-Wedding-Card-Back.jpeg"        // Back Cover
+  ];
+
   return (
     <div className="App">
       <section>
         <h1>PP's Invitation</h1>
         <div className="invitation-container">
           <img src="/E-Invite-SP.png" alt="Invitation" className="invitation-card" />
+          <div className="card-divider"></div>
           <img src="/wed-invite-mock.jpeg" alt="Invitation" className="invitation-card" />
         </div>
       </section>
 
       <section>
-        <h1>Wedding Card</h1>
-        <img src="/ARV-Wedding-Card.jpeg" alt="Invitation" className="invitation-card" />
+        <div className="wedding-cards-horizontal">
+          <div className="wedding-card-half">
+            <h1>Nampelly's</h1>
+            <img src="/ARV-Wedding-Card.jpeg" alt="Nampelly's" className="invitation-card" />
+          </div>
+          <div className="card-divider"></div>
+          <div className="wedding-card-half">
+            <h1>Damera's</h1>
+            <div style={{display: "flex", justifyContent: "center"}}>
+              <HTMLFlipBook
+                width={350}
+                height={500}
+                size="stretch"
+                minWidth={315}
+                maxWidth={500}
+                minHeight={420}
+                maxHeight={650}
+                maxShadowOpacity={0.5}
+                showCover={true}
+                mobileScrollSupport={true}
+                style={{margin: "0 auto", boxShadow: "0 8px 32px rgba(150,7,228,0.12)", borderRadius: "16px"}}
+                className="flipbook-custom"
+              >
+                {dameraCardPages.map((src, idx) => (
+                  <div key={idx} className={`flip-page ${idx === 0 ? 'cover' : idx === dameraCardPages.length - 1 ? 'back-cover' : ''}`}>
+                    <img
+                      src={src}
+                      alt={`Damera's Card Page ${idx}`}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        borderRadius: idx === 0 || idx === dameraCardPages.length - 1 ? "16px" : "0"
+                      }}
+                    />
+                  </div>
+                ))}
+              </HTMLFlipBook>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section>
@@ -141,7 +193,7 @@ function App() {
       </section>
 
       <section>
-        <h2>Live Wedding Stream</h2>
+        <h2>Live Wedding Stream Video</h2>
         <div className="ReactPlayer-wrapper">
           <ReactPlayer 
             url="https://www.youtube.com/watch?v=5NV6Rdv1a3I" 
