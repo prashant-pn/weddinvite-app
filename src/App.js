@@ -256,9 +256,9 @@ function App() {
       <section>
         <h1>Two Hearts, One Journey</h1>
         <div className="invitation-container">
-          <img src="/wedding-inivte.jpeg" alt="Invitation" className="invitation-card" />
+          <img src={process.env.PUBLIC_URL + "/wedding-inivte.jpeg"} alt="Invitation" className="invitation-card" />
           <div className="card-divider"></div>
-          <img src="/PP_Poster.jpeg" alt="Invitation" className="invitation-card" />
+          <img src={process.env.PUBLIC_URL + "/PP_Poster.jpeg"} alt="Invitation" className="invitation-card" />
         </div>
       </section>
 
@@ -268,12 +268,12 @@ function App() {
           <div className="wedding-card-half">
             <WeddingCardFlipbook
               pages={[
-                "/nampelly-cover.jpeg",
-                "/nampelly-1.jpeg",
-                "/nampelly-2.jpeg",
-                "/damera-cover.jpeg",
-                "/damera-1.jpeg",
-                "/damera-2.jpeg"
+                process.env.PUBLIC_URL + "/nampelly-cover.jpeg",
+                process.env.PUBLIC_URL + "/nampelly-1.jpeg",
+                process.env.PUBLIC_URL + "/nampelly-2.jpeg",
+                process.env.PUBLIC_URL + "/damera-cover.jpeg",
+                process.env.PUBLIC_URL + "/damera-1.jpeg",
+                process.env.PUBLIC_URL + "/damera-2.jpeg"
               ]}
             />
           </div>
@@ -294,7 +294,7 @@ function App() {
       <section>
         <h2>A Heartfelt Invite to Our Celebration</h2>
         <video controls className="wedding-video">
-          <source src="/PN_Wedding_Invite.mp4" type="video/mp4" />
+          <source src={process.env.PUBLIC_URL + "/PN_Wedding_Invite.mp4"} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </section>
@@ -305,7 +305,7 @@ function App() {
           {photos.map((photo, index) => (
             <div key={index}>
               <img 
-                src={`/photos/${photo}`}
+                src={process.env.PUBLIC_URL + `/photos/${photo}`}
                 alt={`ARU_ ${index + 1}`}
                 className="slider-image"
                 onContextMenu={e => e.preventDefault()}
@@ -351,7 +351,7 @@ function App() {
               rel="noopener noreferrer"
             >
               <img
-                src="/HARI_HARA-GMAPS_LOC.png"
+                src={process.env.PUBLIC_URL + "/HARI_HARA-GMAPS_LOC.png"}
                 alt="Engagement QR"
                 className="qr-code"
               />
@@ -366,7 +366,7 @@ function App() {
               rel="noopener noreferrer"
             >
               <img
-                src="/NMR-GMAPS-LOC.png"
+                src={process.env.PUBLIC_URL + "/NMR-GMAPS-LOC.png"}
                 alt="Marriage Venue QR"
                 className="qr-code"
               />
@@ -378,14 +378,13 @@ function App() {
       <section>
         <h2>Shower Us With Your Love</h2>
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "32px", marginBottom: "24px" }}>
-          {/* Add your new image here, same size as QR */}
           <img
-            src="/bless-image.png" // <-- Replace with your image file in public/
+            src={process.env.PUBLIC_URL + "/bless-image.png"}
             alt="Gift Box"
             className="qr-code"
           />
           <img
-            src="/PhopePe-PN-QR.jpeg"
+            src={process.env.PUBLIC_URL + "/PhopePe-PN-QR.jpeg"}
             alt="Payment QR"
             className="qr-code"
           />
@@ -438,7 +437,7 @@ function WeddingCardFlipbook({ pages }) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <HTMLFlipBook
-        width={1300} // Increased width for better content visibility
+        width={1300}
         height={1000}
         showCover={true}
         style={{

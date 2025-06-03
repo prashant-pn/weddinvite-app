@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/weddinvite-app/static/css/main.c46bcd48.css",
-    "main.js": "/weddinvite-app/static/js/main.b9e72ef5.js",
+    "main.js": "/weddinvite-app/static/js/main.70d03573.js",
     "reactPlayerYouTube.js": "/weddinvite-app/static/js/reactPlayerYouTube.61d97b9c.chunk.js",
     "reactPlayerSoundCloud.js": "/weddinvite-app/static/js/reactPlayerSoundCloud.e21a08ca.chunk.js",
     "reactPlayerVimeo.js": "/weddinvite-app/static/js/reactPlayerVimeo.06b1e43c.chunk.js",
@@ -22,7 +22,7 @@
     "static/media/slick.woff": "/weddinvite-app/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/weddinvite-app/index.html",
     "main.c46bcd48.css.map": "/weddinvite-app/static/css/main.c46bcd48.css.map",
-    "main.b9e72ef5.js.map": "/weddinvite-app/static/js/main.b9e72ef5.js.map",
+    "main.70d03573.js.map": "/weddinvite-app/static/js/main.70d03573.js.map",
     "reactPlayerYouTube.61d97b9c.chunk.js.map": "/weddinvite-app/static/js/reactPlayerYouTube.61d97b9c.chunk.js.map",
     "reactPlayerSoundCloud.e21a08ca.chunk.js.map": "/weddinvite-app/static/js/reactPlayerSoundCloud.e21a08ca.chunk.js.map",
     "reactPlayerVimeo.06b1e43c.chunk.js.map": "/weddinvite-app/static/js/reactPlayerVimeo.06b1e43c.chunk.js.map",
@@ -40,6 +40,6 @@
   },
   "entrypoints": [
     "static/css/main.c46bcd48.css",
-    "static/js/main.b9e72ef5.js"
+    "static/js/main.70d03573.js"
   ]
 }
