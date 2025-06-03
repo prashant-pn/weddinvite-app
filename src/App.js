@@ -6,6 +6,7 @@ import HTMLFlipBook from "react-pageflip";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './App.css';
+import { FaThumbsUp, FaHands } from "react-icons/fa";
 
 function App() {
   const [photos, setPhotos] = useState([]); // State to store photo file names
@@ -69,10 +70,105 @@ function App() {
     "/ARV-Wedding-Card-Back.jpeg"        // Back Cover
   ];
 
+  // Like button state
+  const [likeCount, setLikeCount] = useState(() => {
+    // Try to get the count from localStorage to persist across reloads
+    const saved = localStorage.getItem('wedding_like_count');
+    return saved ? parseInt(saved, 10) : 0;
+  });
+  const [liked, setLiked] = useState(() => {
+    // Prevent multiple likes from same user (per browser)
+    return localStorage.getItem('wedding_liked') === 'true';
+  });
+
+  const handleLike = () => {
+    if (!liked) {
+      setLikeCount(likeCount + 1);
+      setLiked(true);
+      localStorage.setItem('wedding_like_count', likeCount + 1);
+      localStorage.setItem('wedding_liked', 'true');
+    }
+  };
+
+  // Thumbs up button state
+  const [thumbsUpCount, setThumbsUpCount] = useState(() => {
+    const saved = localStorage.getItem('wedding_thumbs_up_count');
+    return saved ? parseInt(saved, 10) : 0;
+  });
+  const [thumbsUp, setThumbsUp] = useState(() => {
+    return localStorage.getItem('wedding_thumbs_up') === 'true';
+  });
+
+  const handleThumbsUp = () => {
+    if (!thumbsUp) {
+      setThumbsUpCount(thumbsUpCount + 1);
+      setThumbsUp(true);
+      localStorage.setItem('wedding_thumbs_up_count', thumbsUpCount + 1);
+      localStorage.setItem('wedding_thumbs_up', 'true');
+    }
+  };
+
+  // Blessing animation state
+  const [showBlessing, setShowBlessing] = useState(false);
+
+  // Function to trigger blessing animation
+  const handleBlessing = () => {
+    setShowBlessing(true);
+    setTimeout(() => setShowBlessing(false), 2000); // Hide after 2s
+    // Optionally, you can add sound or haptic feedback here
+  };
+
   return (
-    <div className="App">
+    <div className="App" style={{ position: "relative", overflow: "hidden" }}>
+      {/* Blessing Symbol */}
+      <div
+        className="blessing-symbol"
+        title="Send Your Blessings"
+        onClick={handleBlessing}
+        style={{
+          position: "fixed",
+          bottom: 32,
+          right: 32,
+          zIndex: 1000,
+          cursor: "pointer",
+          background: "#fff0fa",
+          borderRadius: "50%",
+          boxShadow: "0 4px 16px rgba(200,0,100,0.12)",
+          width: 64,
+          height: 64,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "2rem",
+          border: "2px solid #e75480",
+          transition: "transform 0.2s",
+        }}
+      >
+        <FaHands style={{ color: "#e75480", fontSize: "2.2rem" }} />
+      </div>
+
+      {/* Animated Hearts */}
+      {showBlessing && (
+        <div className="heart-shower">
+          {Array.from({ length: 24 }).map((_, i) => (
+            <span
+              key={i}
+              className="heart"
+              style={{
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 0.8}s`,
+                fontSize: `${Math.random() * 1.5 + 1.2}rem`,
+                color: "#e75480",
+              }}
+            >
+              💖
+            </span>
+          ))}
+        </div>
+      )}
+
       <section>
-        <h1>PP's Invitation</h1>
+        <h1>Two Hearts, One Journey</h1>
         <div className="invitation-container">
           <img src="/wedding-inivte.jpeg" alt="Invitation" className="invitation-card" />
           <div className="card-divider"></div>
@@ -81,9 +177,9 @@ function App() {
       </section>
 
       <section>
+        <h2>Our Families, Your Blessings</h2>
         <div className="wedding-cards-horizontal">
           <div className="wedding-card-half">
-            <h1>Nampelly's</h1>
             <WeddingCardFlipbook
               pages={[
                 "/nampelly-cover.jpeg",
@@ -92,9 +188,9 @@ function App() {
               ]}
             />
           </div>
-          <div className="card-divider"></div>
+          {/* <div className="card-divider"></div>
           <div className="wedding-card-half">
-            <h1>Damera's</h1>
+            <h3>Damera’s Loving Wishes</h3>
             <WeddingCardFlipbook
               pages={[
                 "/damera-cover.jpeg",
@@ -102,60 +198,29 @@ function App() {
                 "/damera-2.jpeg"
               ]}
             />
-          </div>
+          </div> */}
         </div>
       </section>
 
       <section>
-        <h1>Wedding Invitation</h1>
+        <h2>A Heartfelt Invite to Our Celebration</h2>
         <video controls className="wedding-video">
           <source src="/PN_Wedding_Invite.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </section>
 
-      {/* <section>
-        <h2>Pre-Wedding Photos</h2>
-        {loading ? ( // Show loading spinner or placeholder while fetching data
-          <p>Loading photos...</p>
-        ) : (
-          <Slider {...settings}>
-            {photos.map((photo, index) => (
-              <div key={index}>
-                <img 
-                  src={photo.webContentLink} // Render from the Google Drive link
-                  alt={`Pre-wedding ${index + 1}`} 
-                  className="slider-image" 
-                />
-              </div>
-            ))}
-          </Slider>
-        )}
-      </section> */}
-
-      {/* <section>
-        <h2>Static Pre-Wedding Photos</h2>
-        <Slider {...settings}>
-          <div>
-            <img src="/PP1.jpeg" alt="Pre-wedding 1" className="slider-image" />
-          </div>
-          <div>
-            <img src="/PP2.jpeg" alt="Pre-wedding 2" className="slider-image" />
-          </div>
-        </Slider>
-      </section> */}
-
       <section>
-        <h2>Pre-Wedding Photos</h2>
+        <h2>Our Love Story in Motion</h2>
         <Slider {...settings}>
           {photos.map((photo, index) => (
             <div key={index}>
               <img 
-                src={`/photos/${photo.name}`} // Render from the local folder
+                src={`/photos/${photo.name}`}
                 alt={`PP ${index + 1}`} 
                 className="slider-image" 
-                onContextMenu={(e) => e.preventDefault()} // Disable right-click
-                draggable="false" // Disable dragging
+                onContextMenu={(e) => e.preventDefault()}
+                draggable="false"
               />
             </div>
           ))}
@@ -163,19 +228,19 @@ function App() {
       </section>
 
       <section>
-        <h2>Pre-Wedding Video</h2>
+        <h2>Together, Always & Forever</h2>
         <div className="ReactPlayer-wrapper">
           <ReactPlayer 
-            url="https://www.youtube.com/watch?v=uxojVPpa7N4"
+            url="https://youtu.be/ABw72SM8PB0"
             controls 
             width="100%" 
-            height="500px" // Increased height
+            height="500px"
           />
         </div>
       </section>
 
       <section>
-        <h2>Live Wedding Stream Video</h2>
+        <h2>Celebrate With Us, Wherever You Are</h2>
         <div className="ReactPlayer-wrapper">
           <ReactPlayer 
             url="https://www.youtube.com/watch?v=5NV6Rdv1a3I" 
@@ -187,10 +252,10 @@ function App() {
       </section>
 
       <section>
-        <h2>Our Big Day, This Way</h2>
+        <h2>Venue : Where Our Journey Begins</h2>
         <div className="venue-container">
           <div className="venue-item">
-            <h3>Engagement Venue</h3>
+            <h3 style={{ color: "#222" }}>Engagement : The Promise</h3>
             <a 
               href="https://maps.google.com/maps/place//data=!4m2!3m1!1s0x3bcb5922d84cdc6f:0xc443f5ef5d605ca?entry=s&sa=X&ved=1t:8290&hl=en-in&ictx=111" 
               target="_blank" 
@@ -205,7 +270,7 @@ function App() {
           </div>
 
           <div className="venue-item">
-            <h3>Marriage Venue</h3>
+            <h3 style={{ color: "#222" }}>Wedding : The Beginning</h3>
             <a 
               href="https://maps.app.goo.gl/Qo9KPY3WzohMeZGz6"
               target="_blank" 
@@ -222,7 +287,7 @@ function App() {
       </section>
 
       <section>
-        <h2>Gift Us</h2>
+        <h2>Shower Us With Your Love</h2>
         <a 
           href="upi://pay?pa=9959912634@ybl&pn=Prashanth_Nampally&mc=0000&tid=1234567890&tr=1234567890&tn=Wedding+Gift&am=0&cu=INR" 
           target="_blank" 
@@ -234,6 +299,48 @@ function App() {
             className="qr-code"
           />
         </a>
+        {/* Like & Thumbs Up Buttons */}
+        <div style={{ marginTop: "24px", textAlign: "center", display: "flex", justifyContent: "center", gap: "16px" }}>
+          <button
+            onClick={handleLike}
+            disabled={liked}
+            style={{
+              background: liked ? "#e0e0e0" : "#ff69b4",
+              color: liked ? "#888" : "#fff",
+              border: "none",
+              borderRadius: "24px",
+              padding: "12px 32px",
+              fontSize: "1.2rem",
+              cursor: liked ? "not-allowed" : "pointer",
+              transition: "background 0.2s",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px"
+            }}
+          >
+            {/* Heart symbol and count only */}
+            💖 {likeCount}
+          </button>
+          <button
+            onClick={handleThumbsUp}
+            disabled={thumbsUp}
+            style={{
+              background: thumbsUp ? "#e0e0e0" : "#4caf50",
+              color: thumbsUp ? "#888" : "#fff",
+              border: "none",
+              borderRadius: "24px",
+              padding: "12px 32px",
+              fontSize: "1.2rem",
+              cursor: thumbsUp ? "not-allowed" : "pointer",
+              transition: "background 0.2s",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px"
+            }}
+          >
+            <FaThumbsUp /> {thumbsUpCount}
+          </button>
+        </div>
       </section>
     </div>
   );
@@ -243,24 +350,38 @@ function WeddingCardFlipbook({ pages }) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <HTMLFlipBook
-        width={320}
-        height={450}
+        width={1400} // Increased width for better content visibility
+        height={1000}
         showCover={true}
-        style={{ boxShadow: "0 8px 32px rgba(150,7,228,0.12)", borderRadius: "16px" }}
+        style={{
+          boxShadow: "0 8px 32px rgba(150,7,228,0.18)",
+          borderRadius: "24px",
+          background: "#fff"
+        }}
         className="flipbook-custom"
       >
         {pages.map((src, idx) => (
-          <div key={idx} className="flip-page" style={{ width: "100%", height: "100%", padding: 0, margin: 0 }}>
+          <div
+            key={idx}
+            className="flip-page"
+            style={{
+              width: "100%",
+              height: "100%",
+              padding: 0,
+              margin: 0,
+              background: "#fff",
+              borderRadius: "24px"
+            }}
+          >
             <img
               src={src}
               alt={`Card Page ${idx + 1}`}
               style={{
                 width: "100%",
                 height: "100%",
-                objectFit: "contain", // Show the whole image, no cropping
-                borderRadius: "16px",
-                display: "block",
-                background: "#fff" // Optional: clean background
+                objectFit: "cover",
+                borderRadius: "24px",
+                display: "block"
               }}
             />
           </div>
