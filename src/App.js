@@ -74,9 +74,9 @@ function App() {
       <section>
         <h1>PP's Invitation</h1>
         <div className="invitation-container">
-          <img src="/E-Invite-SP.png" alt="Invitation" className="invitation-card" />
+          <img src="/wedding-inivte.jpeg" alt="Invitation" className="invitation-card" />
           <div className="card-divider"></div>
-          <img src="/wed-invite-mock.jpeg" alt="Invitation" className="invitation-card" />
+          <img src="/wedding-invite-2.jpeg" alt="Invitation" className="invitation-card" />
         </div>
       </section>
 
@@ -84,42 +84,24 @@ function App() {
         <div className="wedding-cards-horizontal">
           <div className="wedding-card-half">
             <h1>Nampelly's</h1>
-            <img src="/ARV-Wedding-Card.jpeg" alt="Nampelly's" className="invitation-card" />
+            <WeddingCardFlipbook
+              pages={[
+                "/nampelly-cover.jpeg",
+                "/nampelly-1.jpeg",
+                "/nampelly-2.jpeg"
+              ]}
+            />
           </div>
           <div className="card-divider"></div>
           <div className="wedding-card-half">
             <h1>Damera's</h1>
-            <div style={{display: "flex", justifyContent: "center"}}>
-              <HTMLFlipBook
-                width={350}
-                height={500}
-                size="stretch"
-                minWidth={315}
-                maxWidth={500}
-                minHeight={420}
-                maxHeight={650}
-                maxShadowOpacity={0.5}
-                showCover={true}
-                mobileScrollSupport={true}
-                style={{margin: "0 auto", boxShadow: "0 8px 32px rgba(150,7,228,0.12)", borderRadius: "16px"}}
-                className="flipbook-custom"
-              >
-                {dameraCardPages.map((src, idx) => (
-                  <div key={idx} className={`flip-page ${idx === 0 ? 'cover' : idx === dameraCardPages.length - 1 ? 'back-cover' : ''}`}>
-                    <img
-                      src={src}
-                      alt={`Damera's Card Page ${idx}`}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        borderRadius: idx === 0 || idx === dameraCardPages.length - 1 ? "16px" : "0"
-                      }}
-                    />
-                  </div>
-                ))}
-              </HTMLFlipBook>
-            </div>
+            <WeddingCardFlipbook
+              pages={[
+                "/damera-cover.jpeg",
+                "/damera-1.jpeg",
+                "/damera-2.jpeg"
+              ]}
+            />
           </div>
         </div>
       </section>
@@ -127,7 +109,7 @@ function App() {
       <section>
         <h1>Wedding Invitation</h1>
         <video controls className="wedding-video">
-          <source src="/PP-Wedding-Invitation.mp4" type="video/mp4" />
+          <source src="/PN_Wedding_Invite.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </section>
@@ -253,6 +235,37 @@ function App() {
           />
         </a>
       </section>
+    </div>
+  );
+}
+
+function WeddingCardFlipbook({ pages }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <HTMLFlipBook
+        width={320}
+        height={450}
+        showCover={true}
+        style={{ boxShadow: "0 8px 32px rgba(150,7,228,0.12)", borderRadius: "16px" }}
+        className="flipbook-custom"
+      >
+        {pages.map((src, idx) => (
+          <div key={idx} className="flip-page" style={{ width: "100%", height: "100%", padding: 0, margin: 0 }}>
+            <img
+              src={src}
+              alt={`Card Page ${idx + 1}`}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "contain", // Show the whole image, no cropping
+                borderRadius: "16px",
+                display: "block",
+                background: "#fff" // Optional: clean background
+              }}
+            />
+          </div>
+        ))}
+      </HTMLFlipBook>
     </div>
   );
 }
