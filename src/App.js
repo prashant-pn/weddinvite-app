@@ -106,9 +106,9 @@ function App() {
 
   useEffect(() => {
     const fetchPhotos = async () => {
-      const folderId = '1OEVFnmSnVh3KDR-Ys2xePgWZnzk8PEV_'; // Your Google Drive folder ID
-      const apiKey = 'AIzaSyD20mpTttVSxTcPQclM2UHKYjjk9gcFcVo'; // Your Google API key
-      const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType,webContentLink,webViewLink)`;
+      const folderId = '1OEVFnmSnVh3KDR-'; // Your Google Drive folder ID
+      const apiKey = ''; // Your Google API key
+      //const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType,webContentLink,webViewLink)`;
 
       try {
         const response = await axios.get(url);
