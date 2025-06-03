@@ -39,7 +39,7 @@ function App() {
     'ARU_26.jpg',
     'ARU_27.jpg',
     'ARU_28.jpg',
-    'ARU_28.jpg',
+    'ARU_29.jpg',
     'ARU_30.jpg',
     'ARU_31.jpg',
     'ARU_32.jpg',
@@ -106,7 +106,7 @@ function App() {
 
   useEffect(() => {
     const fetchPhotos = async () => {
-      const folderId = '1OEVFnmSnVh3KDR-'; // Your Google Drive folder ID
+      const folderId = ''; // Your Google Drive folder ID
       const apiKey = ''; // Your Google API key
       //const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType,webContentLink,webViewLink)`;
 
