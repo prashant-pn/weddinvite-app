@@ -77,6 +77,13 @@ function App() {
     'ARU_64.jpg',
     'ARU_65.jpg',
     'ARU_66.jpg',
+    'ARU_67.jpg',
+    'ARU_68.jpg',
+    'ARU_69.jpg',
+    'ARU_70.jpg',
+    'ARU_71.jpg',
+    'ARU_72.jpg',
+    'ARU_73.jpg',
     // Add more if you have additional ARU_*.jpg files in public/photos
   ]);
 
