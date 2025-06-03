@@ -172,7 +172,7 @@ function App() {
         <div className="invitation-container">
           <img src="/wedding-inivte.jpeg" alt="Invitation" className="invitation-card" />
           <div className="card-divider"></div>
-          <img src="/wedding-invite-2.jpeg" alt="Invitation" className="invitation-card" />
+          <img src="/PP_Poster.jpeg" alt="Invitation" className="invitation-card" />
         </div>
       </section>
 
