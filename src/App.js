@@ -12,6 +12,11 @@ function App() {
   const [photos, setPhotos] = useState([]); // State to store photo file names
   const [loading, setLoading] = useState(true); // State to track loading
 
+  const [likeCount, setLikeCount] = useState(0);
+  const [thumbsUpCount, setThumbsUpCount] = useState(0);
+  const [liked, setLiked] = useState(false);
+  const [thumbsUp, setThumbsUp] = useState(false);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -70,41 +75,26 @@ function App() {
     "/ARV-Wedding-Card-Back.jpeg"        // Back Cover
   ];
 
-  // Like button state
-  const [likeCount, setLikeCount] = useState(() => {
-    // Try to get the count from localStorage to persist across reloads
-    const saved = localStorage.getItem('wedding_like_count');
-    return saved ? parseInt(saved, 10) : 0;
-  });
-  const [liked, setLiked] = useState(() => {
-    // Prevent multiple likes from same user (per browser)
-    return localStorage.getItem('wedding_liked') === 'true';
-  });
+  useEffect(() => {
+    axios.get('http://localhost:4000/api/counts').then(res => {
+      setLikeCount(res.data.like);
+      setThumbsUpCount(res.data.thumbsUp);
+    });
+  }, []);
 
-  const handleLike = () => {
+  const handleLike = async () => {
     if (!liked) {
-      setLikeCount(likeCount + 1);
+      const res = await axios.post('http://localhost:4000/api/like');
+      setLikeCount(res.data.like);
       setLiked(true);
-      localStorage.setItem('wedding_like_count', likeCount + 1);
-      localStorage.setItem('wedding_liked', 'true');
     }
   };
 
-  // Thumbs up button state
-  const [thumbsUpCount, setThumbsUpCount] = useState(() => {
-    const saved = localStorage.getItem('wedding_thumbs_up_count');
-    return saved ? parseInt(saved, 10) : 0;
-  });
-  const [thumbsUp, setThumbsUp] = useState(() => {
-    return localStorage.getItem('wedding_thumbs_up') === 'true';
-  });
-
-  const handleThumbsUp = () => {
+  const handleThumbsUp = async () => {
     if (!thumbsUp) {
-      setThumbsUpCount(thumbsUpCount + 1);
+      const res = await axios.post('http://localhost:4000/api/thumbs-up');
+      setThumbsUpCount(res.data.thumbsUp);
       setThumbsUp(true);
-      localStorage.setItem('wedding_thumbs_up_count', thumbsUpCount + 1);
-      localStorage.setItem('wedding_thumbs_up', 'true');
     }
   };
 
