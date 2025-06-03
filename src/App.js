@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import Slider from "react-slick";
-import axios from 'axios';
 import ReactPlayer from 'react-player';
 import HTMLFlipBook from "react-pageflip";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './App.css';
 import { FaThumbsUp, FaHands } from "react-icons/fa";
+import axios from 'axios';
 
 function App() {
   // Only include ARU_*.jpg files here
-  const [photos] = useState([
+  const [photos, setPhotos] = useState([
     'ARU_1.jpg',
     'ARU_2.jpg',
     'ARU_3.jpg',
@@ -89,10 +89,12 @@ function App() {
 
   const [loading, setLoading] = useState(true); // State to track loading
 
-  const [likeCount, setLikeCount] = useState(0);
-  const [thumbsUpCount, setThumbsUpCount] = useState(0);
-  const [liked, setLiked] = useState(false);
-  const [thumbsUp, setThumbsUp] = useState(false);
+  // Use localStorage to persist per-browser likes/thumbs up
+  const [likeCount, setLikeCount] = useState(() => Number(localStorage.getItem('likeCount')) || 0);
+  const [thumbsUpCount, setThumbsUpCount] = useState(() => Number(localStorage.getItem('thumbsUpCount')) || 0);
+  const [liked, setLiked] = useState(() => localStorage.getItem('liked') === 'true');
+  const [thumbsUp, setThumbsUp] = useState(() => localStorage.getItem('thumbsUp') === 'true');
+ 
 
   const settings = {
     dots: false,         // Remove dots under each photo
@@ -144,36 +146,25 @@ function App() {
     });
   }, []);
 
-  const handleLike = async () => {
-    if (!liked) {
-      const res = await axios.post('http://localhost:4000/api/like');
-      setLikeCount(res.data.like);
-      setLiked(true);
-      // Trigger heart shower animation on like
-      setShowBlessing(true);
-      setTimeout(() => setShowBlessing(false), 2000);
-    }
+  // Animation states for each button
+  const [showHeartShower, setShowHeartShower] = useState(false);
+  const [showFlowerShower, setShowFlowerShower] = useState(false);
+  const [showRoseShower, setShowRoseShower] = useState(false);
+
+  // Animation handlers
+  const handleLike = () => {
+    setShowHeartShower(true);
+    setTimeout(() => setShowHeartShower(false), 2000);
   };
 
-  const handleThumbsUp = async () => {
-    if (!thumbsUp) {
-      const res = await axios.post('http://localhost:4000/api/thumbs-up');
-      setThumbsUpCount(res.data.thumbsUp);
-      setThumbsUp(true);
-      // Trigger heart shower animation on thumbs up
-      setShowBlessing(true);
-      setTimeout(() => setShowBlessing(false), 2000);
-    }
+  const handleThumbsUp = () => {
+    setShowFlowerShower(true);
+    setTimeout(() => setShowFlowerShower(false), 2000);
   };
 
-  // Blessing animation state
-  const [showBlessing, setShowBlessing] = useState(false);
-
-  // Function to trigger blessing animation
   const handleBlessing = () => {
-    setShowBlessing(true);
-    setTimeout(() => setShowBlessing(false), 2000); // Hide after 2s
-    // Optionally, you can add sound or haptic feedback here
+    setShowRoseShower(true);
+    setTimeout(() => setShowRoseShower(false), 2000);
   };
 
   return (
@@ -205,21 +196,58 @@ function App() {
         <FaHands style={{ color: "#e75480", fontSize: "2.2rem" }} />
       </div>
 
-      {/* Animated Hearts */}
-      {showBlessing && (
-        <div className="heart-shower">
+      {/* Heart Shower Animation */}
+      {showHeartShower && (
+        <div className="rose-shower">
           {Array.from({ length: 24 }).map((_, i) => (
             <span
               key={i}
-              className="heart"
+              className="rose"
               style={{
                 left: `${Math.random() * 100}%`,
                 animationDelay: `${Math.random() * 0.8}s`,
                 fontSize: `${Math.random() * 1.5 + 1.2}rem`,
-                color: "#e75480",
               }}
             >
               💖
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* Flower Bunch Shower Animation */}
+      {showFlowerShower && (
+        <div className="rose-shower">
+          {Array.from({ length: 24 }).map((_, i) => (
+            <span
+              key={i}
+              className="rose"
+              style={{
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 0.8}s`,
+                fontSize: `${Math.random() * 1.5 + 1.2}rem`,
+              }}
+            >
+              💐
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* Red Rose Shower Animation */}
+      {showRoseShower && (
+        <div className="rose-shower">
+          {Array.from({ length: 24 }).map((_, i) => (
+            <span
+              key={i}
+              className="rose"
+              style={{
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 0.8}s`,
+                fontSize: `${Math.random() * 1.5 + 1.2}rem`,
+              }}
+            >
+              🌹
             </span>
           ))}
         </div>
@@ -366,42 +394,39 @@ function App() {
         <div style={{ marginTop: "24px", textAlign: "center", display: "flex", justifyContent: "center", gap: "16px" }}>
           <button
             onClick={handleLike}
-            disabled={liked}
             style={{
-              background: liked ? "#e0e0e0" : "#ff69b4",
-              color: liked ? "#888" : "#fff",
+              background: "#ff69b4",
+              color: "#fff",
               border: "none",
               borderRadius: "24px",
               padding: "12px 32px",
               fontSize: "1.2rem",
-              cursor: liked ? "not-allowed" : "pointer",
+              cursor: "pointer",
               transition: "background 0.2s",
               display: "flex",
               alignItems: "center",
               gap: "8px"
             }}
           >
-            {/* Heart symbol and count only */}
-            💖 {likeCount}
+            💖 Ur Loved.
           </button>
           <button
             onClick={handleThumbsUp}
-            disabled={thumbsUp}
             style={{
-              background: thumbsUp ? "#e0e0e0" : "#4caf50",
-              color: thumbsUp ? "#888" : "#fff",
+              background: "#4caf50",
+              color: "#fff",
               border: "none",
               borderRadius: "24px",
               padding: "12px 32px",
               fontSize: "1.2rem",
-              cursor: thumbsUp ? "not-allowed" : "pointer",
+              cursor: "pointer",
               transition: "background 0.2s",
               display: "flex",
               alignItems: "center",
               gap: "8px"
             }}
           >
-            <FaThumbsUp /> {thumbsUpCount}
+            <FaThumbsUp /> Liked it.
           </button>
         </div>
       </section>
