@@ -77,12 +77,6 @@ function App() {
     'ARU_64.jpg',
     'ARU_65.jpg',
     'ARU_66.jpg',
-    'ARU_67.jpg',
-    'ARU_68.jpg',
-    'ARU_69.jpg',
-    'ARU_70.jpg',
-    'ARU_71.jpg',
-    'ARU_72.jpg',
     // Add more if you have additional ARU_*.jpg files in public/photos
   ]);
 
@@ -148,6 +142,9 @@ function App() {
       const res = await axios.post('http://localhost:4000/api/like');
       setLikeCount(res.data.like);
       setLiked(true);
+      // Trigger heart shower animation on like
+      setShowBlessing(true);
+      setTimeout(() => setShowBlessing(false), 2000);
     }
   };
 
@@ -156,6 +153,9 @@ function App() {
       const res = await axios.post('http://localhost:4000/api/thumbs-up');
       setThumbsUpCount(res.data.thumbsUp);
       setThumbsUp(true);
+      // Trigger heart shower animation on thumbs up
+      setShowBlessing(true);
+      setTimeout(() => setShowBlessing(false), 2000);
     }
   };
 
