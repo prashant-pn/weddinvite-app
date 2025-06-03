@@ -304,7 +304,7 @@ function App() {
         <h2>Celebrate With Us, Wherever You Are</h2>
         <div className="ReactPlayer-wrapper">
           <ReactPlayer 
-            url="https://www.youtube.com/watch?v=5NV6Rdv1a3I" 
+            url="https://youtu.be/ABw72SM8PB0"
             controls 
             width="100%" 
             height="500px" 
