@@ -36,5 +36,13 @@
   },
   "devDependencies": {
     "gh-pages": "^6.3.0"
-  }
+  },
+  "homepage": "https://prashant-pn.github.io/weddinvite-app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prashant-pn/weddinvite-app.git"
+  },
+  "author": "Prashant Nampally",
+  "license": "MIT",
+  "description": "A wedding invitation app that allows users to create and share digital invitations with guests, featuring RSVP functionality, photo sharing, and event details."
 }
