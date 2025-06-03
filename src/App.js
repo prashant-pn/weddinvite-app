@@ -9,7 +9,83 @@ import './App.css';
 import { FaThumbsUp, FaHands } from "react-icons/fa";
 
 function App() {
-  const [photos, setPhotos] = useState([]); // State to store photo file names
+  // Only include ARU_*.jpg files here
+  const [photos] = useState([
+    'ARU_1.jpg',
+    'ARU_2.jpg',
+    'ARU_3.jpg',
+    'ARU_4.jpg',
+    'ARU_5.jpg',
+    'ARU_6.jpg',
+    'ARU_7.jpg',
+    'ARU_8.jpg',
+    'ARU_9.jpg',
+    'ARU_10.jpg',
+    'ARU_11.jpg',
+    'ARU_12.jpg',
+    'ARU_13.jpg',
+    'ARU_14.jpg',
+    'ARU_15.jpg',
+    'ARU_16.jpg',
+    'ARU_17.jpg',
+    'ARU_18.jpg',
+    'ARU_19.jpg',
+    'ARU_20.jpg',
+    'ARU_21.jpg',
+    'ARU_22.jpg',
+    'ARU_23.jpg',
+    'ARU_24.jpg',
+    'ARU_25.jpg',
+    'ARU_26.jpg',
+    'ARU_27.jpg',
+    'ARU_28.jpg',
+    'ARU_28.jpg',
+    'ARU_30.jpg',
+    'ARU_31.jpg',
+    'ARU_32.jpg',
+    'ARU_33.jpg',
+    'ARU_34.jpg',
+    'ARU_35.jpg',
+    'ARU_36.jpg',
+    'ARU_37.jpg',
+    'ARU_38.jpg',
+    'ARU_39.jpg',
+    'ARU_40.jpg',
+    'ARU_41.jpg',
+    'ARU_42.jpg',
+    'ARU_43.jpg',
+    'ARU_44.jpg',
+    'ARU_45.jpg',
+    'ARU_46.jpg',
+    'ARU_47.jpg',
+    'ARU_48.jpg',
+    'ARU_49.jpg',
+    'ARU_50.jpg',
+    'ARU_51.jpg',
+    'ARU_52.jpg',
+    'ARU_53.jpg',
+    'ARU_54.jpg',
+    'ARU_55.jpg',
+    'ARU_56.jpg',
+    'ARU_57.jpg',
+    'ARU_58.jpg',
+    'ARU_59.jpg',
+    'ARU_60.jpg',
+    'ARU_61.jpg',
+    'ARU_62.jpg',
+    'ARU_63.jpg',
+    'ARU_64.jpg',
+    'ARU_65.jpg',
+    'ARU_66.jpg',
+    'ARU_67.jpg',
+    'ARU_68.jpg',
+    'ARU_69.jpg',
+    'ARU_70.jpg',
+    'ARU_71.jpg',
+    'ARU_72.jpg',
+    // Add more if you have additional ARU_*.jpg files in public/photos
+  ]);
+
   const [loading, setLoading] = useState(true); // State to track loading
 
   const [likeCount, setLikeCount] = useState(0);
@@ -18,13 +94,13 @@ function App() {
   const [thumbsUp, setThumbsUp] = useState(false);
 
   const settings = {
-    dots: true,
+    dots: false,         // Remove dots under each photo
     infinite: true,
-    speed: 500,
+    speed: 350,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 1800,
   };
 
   useEffect(() => {
@@ -47,21 +123,6 @@ function App() {
     };
 
     fetchPhotos();
-  }, []);
-
-  useEffect(() => {
-    // Fetch the list of photo file names from the public/photos folder
-    const fetchLocalPhotos = async () => {
-      // Replace this with the actual file names in your `public/photos` folder
-      const localPhotos = [
-        'PP1.jpeg',
-        'PP2.jpeg',
-        'PP3.jpeg',
-      ];
-      setPhotos(localPhotos);
-    };
-
-    fetchLocalPhotos();
   }, []);
 
   // Example: 5 pages + cover + back cover
@@ -174,7 +235,10 @@ function App() {
               pages={[
                 "/nampelly-cover.jpeg",
                 "/nampelly-1.jpeg",
-                "/nampelly-2.jpeg"
+                "/nampelly-2.jpeg",
+                "/damera-cover.jpeg",
+                "/damera-1.jpeg",
+                "/damera-2.jpeg"
               ]}
             />
           </div>
@@ -206,10 +270,10 @@ function App() {
           {photos.map((photo, index) => (
             <div key={index}>
               <img 
-                src={`/photos/${photo.name}`}
-                alt={`PP ${index + 1}`} 
-                className="slider-image" 
-                onContextMenu={(e) => e.preventDefault()}
+                src={`/photos/${photo}`}
+                alt={`ARU_ ${index + 1}`}
+                className="slider-image"
+                onContextMenu={e => e.preventDefault()}
                 draggable="false"
               />
             </div>
@@ -278,17 +342,19 @@ function App() {
 
       <section>
         <h2>Shower Us With Your Love</h2>
-        <a 
-          href="upi://pay?pa=9959912634@ybl&pn=Prashanth_Nampally&mc=0000&tid=1234567890&tr=1234567890&tn=Wedding+Gift&am=0&cu=INR" 
-          target="_blank" 
-          rel="noopener noreferrer"
-        >
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "32px", marginBottom: "24px" }}>
+          {/* Add your new image here, same size as QR */}
+          <img
+            src="/bless-image.png" // <-- Replace with your image file in public/
+            alt="Gift Box"
+            className="qr-code"
+          />
           <img
             src="/PhopePe-PN-QR.jpeg"
             alt="Payment QR"
             className="qr-code"
           />
-        </a>
+        </div>
         {/* Like & Thumbs Up Buttons */}
         <div style={{ marginTop: "24px", textAlign: "center", display: "flex", justifyContent: "center", gap: "16px" }}>
           <button
@@ -340,7 +406,7 @@ function WeddingCardFlipbook({ pages }) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <HTMLFlipBook
-        width={1400} // Increased width for better content visibility
+        width={1300} // Increased width for better content visibility
         height={1000}
         showCover={true}
         style={{
