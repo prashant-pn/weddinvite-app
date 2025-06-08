@@ -332,7 +332,7 @@ function App() {
         <h2>Celebrate With Us, Wherever You Are</h2>
         <div className="ReactPlayer-wrapper">
           <ReactPlayer 
-            url="https://youtu.be/ABw72SM8PB0"
+            url="https://www.youtube.com/live/xFyXDdOolIk?si=x5qlPKa795D5u9gw"
             controls 
             width="100%" 
             height="500px" 
@@ -407,7 +407,7 @@ function App() {
               gap: "8px"
             }}
           >
-            💖 Ur Loved.
+            💖 Ur Love.
           </button>
           <button
             onClick={handleThumbsUp}
